@@ -26,19 +26,17 @@ con.connect(function(err) {
 });
 //tarvitset tätä perkele!
 app.get("/", function(req, res) {
-    res.sendFile(path.join(process.cwd(), 'views/index.html'));
+    res.sendFile(path.join(process.cwd(), '/views/index.html'));
 });
 
 app.get("/cars", function(req,res){
     var q = url.parse(req.url, true).query
     var malli = q.name;
-    console.log(malli + "lol")
     var sql = "SELECT * FROM auto WHERE Malli = ?";
 
     (async () => {
         try {
             const json = await query(sql, [malli]);
-            console.log(json)
             res.send(json);
         } catch(err) {
             console.log("Database Error!");
