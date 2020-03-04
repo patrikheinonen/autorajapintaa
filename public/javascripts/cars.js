@@ -1,5 +1,5 @@
-function makeQuery() {
-    var name = document.getElementById("car");
+function searchCar() {
+    var name = document.getElementById("car").value;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -9,11 +9,11 @@ function makeQuery() {
                 showList(json);
             }
             else {
-                document.getElementById("locationInfo").innerHTML = "<br/>Ei tapahtumatietoja tältä ajalta.";
+                console.log(json)
             }
         }
     };
-    xmlhttp.open("GET", "http://localhost:8081/cars?name="+ name, true);
+    xmlhttp.open("GET", "http://localhost:8080/cars?name="+ name, true);
     xmlhttp.send();
 }
 
@@ -23,13 +23,13 @@ function showList(json) {
     locationInfo.innerHTML =
         "<table>" +
         "<tr>" +
-        "<th>Date</th>"
+        "<th>Date</th>"+
     "<th>Name</th>" +
     "</tr>" +
     "</table>";
     for(var i=0; i<json.length; i++) {
         var row = locationInfo.firstChild.insertRow(-1);
-        row.insertCell(0).innerHTML = (json);
+        row.insertCell(0).innerHTML = (json[i].AutoId);
 
     }
 }
