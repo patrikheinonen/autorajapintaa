@@ -30,23 +30,28 @@ app.get("/", function(req, res) {
 });
 
 app.get("/cars", function(req,res){
-    var q = url.parse(req.url, true).query
+    var q = url.parse(req.url, true).query;
     var malli = q.name;
-    var sql = "SELECT * FROM auto WHERE Malli = ?";
 
+    if (malli.length === 0) {
+        var sql = "SELECT * FROM auto";
+    } else {
+        var sql = "SELECT * FROM auto WHERE Malli = ?";
+    }
     (async () => {
         try {
             const json = await query(sql, [malli]);
-            res.send(json);
+            if (json.length === 0) {
+                res.send(null)
+            } else {
+                res.send(json);
+            }
+
         } catch(err) {
             console.log("Database Error!");
         }
     })();
-
-
 });
-
-
 
 try {
     app.listen(8082, function () {
