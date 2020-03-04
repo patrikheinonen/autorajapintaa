@@ -25,20 +25,18 @@ con.connect(function(err) {
     if (err) throw err;
 });
 //tarvitset tätä perkele!
-app.get("/index", function(req, res) {
-    res.sendFile(path.join("C:/Users/Pate/PhpstormProjects/autorajapintaa/views/index.html"));
+app.get("/", function(req, res) {
+    res.sendFile(path.join(process.cwd(), '/views/index.html'));
 });
 
 app.get("/cars", function(req,res){
     var q = url.parse(req.url, true).query
     var malli = q.name;
-    console.log(malli + "lol")
     var sql = "SELECT * FROM auto WHERE Malli = ?";
 
     (async () => {
         try {
             const json = await query(sql, [malli]);
-            console.log(json)
             res.send(json);
         } catch(err) {
             console.log("Database Error!");
@@ -51,8 +49,8 @@ app.get("/cars", function(req,res){
 
 
 try {
-    app.listen(8080, function () {
-        console.log("http://localhost:8080/index");
+    app.listen(8082, function () {
+        console.log("http://localhost:8082/index");
     });
 } catch {
 

@@ -13,7 +13,7 @@ function searchCar() {
             }
         }
     };
-    xmlhttp.open("GET", "http://localhost:8080/cars?name="+ name, true);
+    xmlhttp.open("GET", "http://localhost:8082/cars?name="+ name, true);
     xmlhttp.send();
 }
 
@@ -30,6 +30,5 @@ function showList(json) {
     for(var i=0; i<json.length; i++) {
         var row = locationInfo.firstChild.insertRow(-1);
         row.insertCell(0).innerHTML = (json[i].AutoId);
-
     }
 }
