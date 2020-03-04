@@ -28,11 +28,10 @@ con.connect(function (err) {
 //tarvitset tätä perkele!
 app.get("/", function (req, res) {
     res.sendFile(path.join(process.cwd(), '/views/index.html'));
-    console.log(process.cwd())
 });
 
 app.get("/cars", function (req, res) {
-    var sql = "SELECT * FROM auto WHERE Malli = ?";
+
     var q = url.parse(req.url, true).query;
     var malli = q.name;
     if (malli == null || malli.length === 0) {
@@ -103,6 +102,22 @@ app.put("/cars", function (req, res) {
             console.log("Database Error!");
         }
     })();
+});
+
+app.delete("/cars", function(req, res) {
+    var q = url.parse(req.url, true).query;
+    var sql = "DELETE FROM Auto WHERE AutoId = ?";
+    var id = q.id;
+
+    (async () => {
+        try {
+            const json = await query(sql, [id]);
+            res.send(json);
+        } catch (err) {
+            console.log("Database Error!");
+        }
+    })();
+
 });
 
 try {
