@@ -30,6 +30,5 @@ function showList(json) {
     for(var i=0; i<json.length; i++) {
         var row = locationInfo.firstChild.insertRow(-1);
         row.insertCell(0).innerHTML = (json[i].AutoId);
-
     }
 }
