@@ -1,4 +1,4 @@
-function makeQuery() {
+function searchCar() {
     var name = document.getElementById("car");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {

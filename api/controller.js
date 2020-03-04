@@ -20,8 +20,8 @@ con.connect(function(err) {
     if (err) throw err;
 });
 //tarvitset tätä perkele!
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname+"/views/index.html"));
+app.get("/index", function(req, res) {
+    res.sendFile(path.join(__dirname+"/index.ejs"));
 });
 
 app.get("/cars", function(req,res){
