@@ -13,7 +13,7 @@ function searchCar() {
             }
         }
     };
-    xmlhttp.open("GET", "http://localhost:8080/cars?name="+ name, true);
+    xmlhttp.open("GET", "http://localhost:8082/cars?name="+ name, true);
     xmlhttp.send();
 }
 
