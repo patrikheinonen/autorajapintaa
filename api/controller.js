@@ -30,7 +30,7 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(process.cwd(), '/views/index.html'));
 });
 
-app.get("/cars", function (req, res) {
+app.get("/cars", async function (req, res) {
 
     var q = url.parse(req.url, true).query;
     var malli = q.name;
@@ -39,18 +39,17 @@ app.get("/cars", function (req, res) {
     } else {
         var sql = "SELECT * FROM auto WHERE Malli = ?";
     }
-    (async () => {
-        try {
-            const json = await query(sql, [malli]);
-            if (json.length === 0) {
-                res.send(null)
-            } else {
-                res.send(json);
-            }
-        } catch (err) {
-            console.log("Database Error!");
+    try {
+        const json = await query(sql, [malli]);
+        if (json.length === 0) {
+            res.send(null)
+        } else {
+            res.send(json);
         }
-    })();
+    } catch (err) {
+        console.log("Database Error!");
+    }
+
 });
 
 app.post("/cars", function (req, res) {
@@ -93,7 +92,6 @@ app.put("/cars", function (req, res) {
     var from0to100 = req.body.NollastaSataan;
     var horsePower = req.body.HevosVoimat;
     var wheels = req.body.VetävätRenkaat;
-
     (async () => {
         try {
             const json = await query(sql, [id, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels]);
@@ -104,7 +102,7 @@ app.put("/cars", function (req, res) {
     })();
 });
 
-app.delete("/cars", function(req, res) {
+app.delete("/cars", function (req, res) {
     var q = url.parse(req.url, true).query;
     var sql = "DELETE FROM Auto WHERE AutoId = ?";
     var id = q.id;
