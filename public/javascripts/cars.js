@@ -25,10 +25,7 @@ function searchCar() {
             } catch {
                 console.log("4")
                 document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään"
-
             }
-
-
         }
     };
     console.log("111")
@@ -36,39 +33,30 @@ function searchCar() {
     xmlhttp.send();
 }
 
-function addFunctionalityToButtons() {
-    var buttons = document.getElementsByName("deletebtn");
-
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].onclick = function () {
-            var id = this.parentElement.parentElement.firstChild.innerHTML;
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    try {
-                        console.log("5")
-                        var json = JSON.parse(xmlhttp.responseText);
-                        searchCar();
-                        console.log(document.getElementById("locationInfo").firstChild);
-                        document.getElementById("locationInfo").firstChild.deleteRow(-1);
-                        console.log("6")
-                        console.log("7")
-                        if (json.length > 0) { // something found
-                            console.log("8")
-                        } else {
-                            console.log("9")
-                        }
-                    } catch {
-                        console.log("10")
-                        document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
-                    }
+function deleteButton(number){
+    var id = number;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            try {
+                console.log("5")
+                var json = JSON.parse(xmlhttp.responseText);
+                searchCar();
+                document.getElementById("locationInfo").firstChild.deleteRow(-1);
+                if (json.length > 0) { // something found
+                    console.log("8")
+                } else {
+                    console.log("9")
                 }
-            };
-            console.log("11");
-            xmlhttp.open("DELETE", "http://localhost:8082/cars?id="+id, true);
-            xmlhttp.send();
+            } catch {
+                console.log("10")
+                document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
+            }
         }
-    }
+    };
+    console.log(id);
+    xmlhttp.open("DELETE", "http://localhost:8082/cars?id="+id, true);
+    xmlhttp.send();
 
 }
 
@@ -96,7 +84,8 @@ function showList(json) {
 
     for (var i = 0; i < json.length; i++) {
         var row = locationInfo.firstChild.insertRow(-1);
-        row.insertCell(0).innerHTML = (json[i].AutoId);
+        var id = json[i].AutoId;
+        row.insertCell(0).innerHTML = (id);
         row.insertCell(1).innerHTML = (json[i].Merkki);
         row.insertCell(2).innerHTML = (json[i].Malli);
         row.insertCell(3).innerHTML = (json[i].Valmistusvuosi);
@@ -108,10 +97,8 @@ function showList(json) {
         row.insertCell(9).innerHTML = (json[i].NollastaSataan);
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
-        row.insertCell(12).innerHTML = "<button type='button' onclick = '' name='deletebtn'>Poista</button>";
+        row.insertCell(12).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
     }
     console.log("222")
-    addFunctionalityToButtons();
-
 
 }
