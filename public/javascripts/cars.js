@@ -1,4 +1,5 @@
 function searchCar() {
+    document.getElementById("row").innerHTML = "";
     var name = document.getElementById("car").value;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -15,7 +16,7 @@ function searchCar() {
             }
         }
     };
-    xmlhttp.open("GET", "http://localhost:8082/cars?name=" + name, true);
+    xmlhttp.open("GET", "http://localhost:8082/cars/" + name, true);
     xmlhttp.send();
 }
 
@@ -33,16 +34,70 @@ function deleteButton(number) {
             }
         }
     };
-    xmlhttp.open("DELETE", "http://localhost:8082/cars?id=" + id, true);
+    xmlhttp.open("DELETE", "http://localhost:8082/cars/" + id, true);
     xmlhttp.send();
 
+}
+
+function modifyButton(number) {
+    console.log(number)
+    var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    var content = document.getElementById("content");
+
+    var table = document.getElementById("table");
+    console.log(table);
+    let rightRow;
+    for (let i = 0, row; row = table.rows[i]; i++) {
+        for (let j = 0, col; col = row.cells[j]; j++) {
+            if (number == col.innerHTML) {
+                console.log("löytyi" + row.rowIndex)
+                rightRow = row;
+                break;
+            }
+        }
+    }
+    console.log("WTF:" + rightRow.rowIndex)
+        for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length-2; j++) {
+            console.log(title.innerHTML);
+            console.log((col.innerHTML));
+            var y = document.createElement("p");
+            y.innerHTML = title.innerHTML + ": ";
+            var x = document.createElement("INPUT");
+            x.setAttribute("type", "text");
+            x.setAttribute("value", col.innerHTML);
+            content.append(y);
+            content.append(x);
+        }
+
+// When the user clicks on the button, open the modal
+    modal.style.display = "block";
+
+// When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+        content.innerHTML = "";
+    }
+
+// When the user clicks anywhere outside of the modal, close it
+    /*window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }*/
 }
 
 function showList(json) {
     var locationInfo = document.getElementById("locationInfo");
 
     locationInfo.innerHTML =
-        "<table>" +
+        "<table id='table'>" +
         "<tr>" +
         "<th>ID</th>" +
         "<th>Merkki</th>" +
@@ -76,6 +131,12 @@ function showList(json) {
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
         row.insertCell(12).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
+        row.insertCell(13).innerHTML = `<button id="myBtn" onclick='modifyButton(${id})'>Muokkaa</button>
+                                              <div id="myModal" class="modal">
+                                                <div class="modal-content">
+                                                    <span class="close">&times;</span>
+                                                    <div id="content"></div>
+                                                </div>
+                                              </div>`
     }
-    
 }
