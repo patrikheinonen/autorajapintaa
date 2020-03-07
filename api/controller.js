@@ -30,19 +30,48 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(process.cwd(), '/views/index.html'));
 });
 
+app.get("/cars/:name", async function (req, res) {
+
+    var { name } = req.params;
+    var sql = "SELECT * FROM auto WHERE Malli = ?";
+
+    try {
+        let json = await query(sql, [name]);
+        if (json.length === 0) {
+            sql = "SELECT * FROM auto WHERE Merkki = ?";
+            json = await query(sql, [name]);
+            if (json.length === 0) {
+                res.send(null)
+            }
+            else {
+                res.send(json);
+            }
+        } else {
+            res.send(json);
+        }
+    } catch (err) {
+        console.log("Database Error!");
+    }
+
+});
+
 app.get("/cars", async function (req, res) {
 
-    var q = url.parse(req.url, true).query;
-    var malli = q.name;
-    if (malli == null || malli.length === 0) {
+    var { name } = req.params;
+    if (name == null || name.length === 0) {
         var sql = "SELECT * FROM auto";
-    } else {
-        var sql = "SELECT * FROM auto WHERE Malli = ?";
     }
     try {
-        const json = await query(sql, [malli]);
+        let json = await query(sql, [name]);
         if (json.length === 0) {
-            res.send(null)
+            sql = "SELECT * FROM auto WHERE Merkki = ?";
+            json = await query(sql, [name]);
+            if (json.length === 0) {
+                res.send(null)
+            }
+            else {
+                res.send(json);
+            }
         } else {
             res.send(json);
         }
@@ -81,12 +110,11 @@ app.post("/cars", function (req, res) {
 });
 
 
-app.put("/cars", async function (req, res) {
-    var q = url.parse(req.url, true).query;
-    var id = q.id;
+app.put("/cars/:AutoId", async function (req, res) {
+    var { AutoId } = req.params;
     var sql = "SELECT * FROM auto WHERE AutoID = ?";
 try {
-    const json = await query(sql, [id]);
+    const json = await query(sql, [AutoId]);
     if (json.length === 0) {
         post(req, res);
     } else {
@@ -104,7 +132,7 @@ try {
         var wheels = req.body.VetävätRenkaat;
         (async () => {
             try {
-                const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, id]);
+                const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, AutoId]);
                 res.send(json);
             } catch (err) {
                 console.log("Database Error!");
@@ -115,16 +143,15 @@ try {
     console.log("Database Error!");
 }
 })
+//
 
-
-app.delete("/cars", function (req, res) {
-    var q = url.parse(req.url, true).query;
+app.delete("/cars/:AutoId", function (req, res) {
+    var { AutoId } = req.params;
     var sql = "DELETE FROM Auto WHERE AutoId = ?";
-    var id = q.id;
 
     (async () => {
         try {
-            const json = await query(sql, [id]);
+            const json = await query(sql, [AutoId]);
             res.send(json);
         } catch (err) {
             console.log("Database Error!");
