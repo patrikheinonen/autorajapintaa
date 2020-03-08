@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "ryhma8password",
     database: "car_database"
 });
 
@@ -120,17 +120,17 @@ try {
         post(req, res);
     } else {
         var sql = "UPDATE Auto SET Merkki = ?, Malli = ?, Valmistusvuosi = ?, Polttoaine = ?, Paino = ?, CO2 = ?, Hinta = ?, MaxNopeus = ?, NollastaSataan = ?, HevosVoimat = ?, VetävätRenkaat = ? WHERE AutoID = ?";
-        var mark = req.body.Merkki;
-        var model = req.body.Malli;
-        var year = req.body.Valmistusvuosi;
-        var fuel = req.body.Polttoaine;
-        var weight = req.body.Paino;
-        var co2 = req.body.CO2;
-        var price = req.body.Hinta;
-        var topSpeed = req.body.MaxNopeus;
-        var from0to100 = req.body.NollastaSataan;
-        var horsePower = req.body.HevosVoimat;
-        var wheels = req.body.VetävätRenkaat;
+        var mark = req.body.mark;
+        var model = req.body.model;
+        var year = req.body.year;
+        var fuel = req.body.fuel;
+        var weight = req.body.weight;
+        var co2 = req.body.co2;
+        var price = req.body.price;
+        var topSpeed = req.body.topSpeed;
+        var from0to100 = req.body.from0to100;
+        var horsePower = req.body.horsePower;
+        var wheels = req.body.wheels;
         (async () => {
             try {
                 const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, AutoId]);
