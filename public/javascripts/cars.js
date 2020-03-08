@@ -97,7 +97,9 @@ function modifyButton(number) {
     var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("modBtn");
+
+    var save = document.getElementById("saveBtn")
 
 // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -109,8 +111,8 @@ function modifyButton(number) {
     let rightRow;
     for (let i = 0, row; row = table.rows[i]; i++) {
         for (let j = 0, col; col = row.cells[j]; j++) {
-            if (number == col.innerHTML) {
-                console.log("löytyi" + row.rowIndex);
+
+            if (j === 0 && number == col.innerHTML) {
                 rightRow = row;
                 break;
             }
@@ -127,6 +129,7 @@ function modifyButton(number) {
         x.setAttribute("value", col.innerHTML);
         content.append(y);
         content.append(x);
+        //
     }
 
 // When the user clicks on the button, open the modal
@@ -136,6 +139,40 @@ function modifyButton(number) {
     span.onclick = function () {
         modal.style.display = "none";
         content.innerHTML = "";
+    }
+
+    save.onclick = function () {
+        var values = content.getElementsByTagName("input");
+
+        var data = JSON.stringify(
+            {
+                mark: values[1].value,
+                model: values[2].value,
+                year: values[3].value,
+                fuel: values[4].value,
+                weight: values[5].value,
+                co2: values[6].value,
+                price: values[7].value,
+                topSpeed: values[8].value,
+                from0to100: values[9].value,
+                horsePower: values[10].value,
+                wheels: values[11].value
+            });
+        console.log(values[11].value);
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                try {
+                    var json = JSON.parse(xmlhttp.responseText);
+                } catch {
+                    document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
+                }
+            }
+        };
+        xmlhttp.open("PUT", "http://localhost:8082/cars/" + number, true);
+        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.send(data);
     }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -185,11 +222,12 @@ function showList(json) {
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
         row.insertCell(12).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
-        row.insertCell(13).innerHTML = `<button id="myBtn" onclick='modifyButton(${id})'>Muokkaa</button>
+        row.insertCell(13).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
                                                     <div id="content"></div>
+                                                    <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
                                               </div>`
     }
