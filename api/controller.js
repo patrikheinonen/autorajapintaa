@@ -1,22 +1,23 @@
 var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
 var mysql = require("mysql2");
 var url = require("url");
 var path = require("path");
 var util = require("util");
-var bodyParser = require("body-parser");
+
 
 app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "ryhma8password",
+    password: "root",
     database: "car_database"
 });
 
@@ -83,17 +84,17 @@ app.get("/cars", async function (req, res) {
 
 function post(req, res) {
     var sql = "INSERT INTO Auto VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    var mark = req.body.Merkki;
-    var model = req.body.Malli;
-    var year = req.body.Valmistusvuosi;
-    var fuel = req.body.Polttoaine;
-    var weight = req.body.Paino;
-    var co2 = req.body.CO2;
-    var price = req.body.Hinta;
-    var topSpeed = req.body.MaxNopeus;
-    var from0to100 = req.body.NollastaSataan;
-    var horsePower = req.body.HevosVoimat;
-    var wheels = req.body.VetävätRenkaat;
+    var mark = req.body.mark;
+    var model = req.body.model;
+    var year = req.body.year;
+    var fuel = req.body.fuel;
+    var weight = req.body.weight;
+    var co2 = req.body.co2;
+    var price = req.body.price;
+    var topSpeed = req.body.topSpeed;
+    var from0to100 = req.body.from0to100;
+    var horsePower = req.body.horsePower;
+    var wheels = req.body.wheels;
 
     (async () => {
         try {
@@ -142,7 +143,7 @@ try {
 } catch (err) {
     console.log("Database Error!");
 }
-})
+});
 //
 
 app.delete("/cars/:AutoId", function (req, res) {
