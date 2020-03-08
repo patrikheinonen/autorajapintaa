@@ -39,6 +39,59 @@ function deleteButton(number) {
 
 }
 
+function openInsertForm() {
+    var insertDiv = document.getElementById("insert");
+    insertDiv.style.display = "block"
+    var close = document.getElementsByClassName("close")[0];
+    close.onclick = function () {
+        insertDiv.style.display = "none"
+    }
+}
+
+function addCarToDb() {
+    var mark = document.getElementById("Merkki").value;
+    var model = document.getElementById("Malli").value;
+    var year = document.getElementById("Valmistusvuosi").value;
+    var fuel = document.getElementById("Polttoaine").value;
+    var weight = document.getElementById("Paino").value;
+    var co2 = document.getElementById("CO2").value;
+    var price = document.getElementById("Hinta").value;
+    var topSpeed = document.getElementById("Maksiminopeus").value;
+    var from0to100 = document.getElementById("NollastaSataan").value;
+    var horsePower = document.getElementById("Hevosvoimat").value;
+    var wheels = document.getElementById("VetävätRenkaat").value;
+
+    var data = JSON.stringify(
+        {
+            mark: mark,
+            model: model,
+            year: Number(year),
+            fuel: fuel,
+            weight: Number(weight),
+            co2: Number(co2),
+            price: Number(price),
+            topSpeed: Number(topSpeed),
+            from0to100: Number(from0to100),
+            horsePower: Number(horsePower),
+            wheels: wheels
+        });
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            try {
+                var json = JSON.parse(xmlhttp.responseText);
+            } catch {
+                document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
+            }
+        }
+    };
+    xmlhttp.open("POST", "http://localhost:8082/cars", true);
+    xmlhttp.setRequestHeader("Content-type", "application/json");
+    xmlhttp.send(data);
+
+}
+
 function modifyButton(number) {
     console.log(number)
     var modal = document.getElementById("myModal");
@@ -57,24 +110,24 @@ function modifyButton(number) {
     for (let i = 0, row; row = table.rows[i]; i++) {
         for (let j = 0, col; col = row.cells[j]; j++) {
             if (number == col.innerHTML) {
-                console.log("löytyi" + row.rowIndex)
+                console.log("löytyi" + row.rowIndex);
                 rightRow = row;
                 break;
             }
         }
     }
-    console.log("WTF:" + rightRow.rowIndex)
-        for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length-2; j++) {
-            console.log(title.innerHTML);
-            console.log((col.innerHTML));
-            var y = document.createElement("p");
-            y.innerHTML = title.innerHTML + ": ";
-            var x = document.createElement("INPUT");
-            x.setAttribute("type", "text");
-            x.setAttribute("value", col.innerHTML);
-            content.append(y);
-            content.append(x);
-        }
+    console.log("WTF:" + rightRow.rowIndex);
+    for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 2; j++) {
+        console.log(title.innerHTML);
+        console.log((col.innerHTML));
+        var y = document.createElement("p");
+        y.innerHTML = title.innerHTML + ": ";
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        x.setAttribute("value", col.innerHTML);
+        content.append(y);
+        content.append(x);
+    }
 
 // When the user clicks on the button, open the modal
     modal.style.display = "block";
@@ -110,8 +163,9 @@ function showList(json) {
         "<th>Maksiminopeus</th>" +
         "<th>Nollasta sataan</th>" +
         "<th>Hevosvoimat</th>" +
-        "<th>Vetävätrenkaat</th>" +
+        "<th>Vetävät renkaat</th>" +
         "<th>Poista </th>" +
+        "<th>Muokkaa </th>" +
         "</tr>" +
         "</table>";
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Albuminfo</title>
+    <title>Auto</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,16 +15,37 @@
 
 <body>
 <div class="page-header">
+    <button type="button" onclick="openInsertForm()" class="btn btn-default" >Lisää auto</button>
     <div class="input-group">
-        <input type="text" class="form-control" id="car" placeholder="Hae autoja mallin perusteella">
+        <input type="text" class="form-control" id="car" placeholder="Hae autoja mallin tai merkin perusteella">
         <span class="input-group-btn">
-        <button type="button" class="btn btn-default" onclick="searchCar()">Search</button>
+        <button type="button" class="btn btn-default" onclick="searchCar()">Hae</button>
       </span>
     </div>
 </div>
 
 <div id="locationInfo" class="controls form-inline">
 
+</div>
+
+<div id="insert" style="display: none" class = "modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="content">
+            <input type="text" class="form-control" id="Merkki" placeholder="Merkki">
+            <input type="text" class="form-control" id="Malli" placeholder="Malli">
+            <input type="number" class="form-control" id="Valmistusvuosi" placeholder="Valmistusvuosi">
+            <input type="text" class="form-control" id="Polttoaine" placeholder="Polttoaine">
+            <input type="number" class="form-control" id="Paino" placeholder="Paino">
+            <input type="number" class="form-control" id="CO2" placeholder="CO2">
+            <input type="number" class="form-control" id="Hinta" placeholder="Hinta">
+            <input type="number" class="form-control" id="Maksiminopeus" placeholder="Maksiminopeus">
+            <input type="number" class="form-control" id="NollastaSataan" placeholder="Nollasta sataan">
+            <input type="number" class="form-control" id="Hevosvoimat" placeholder="Hevosvoimat">
+            <input type="text" class="form-control" id="VetävätRenkaat" placeholder="Vetävät renkaat">
+            <button type="button" class="btn btn-default" onclick="addCarToDb()">Lisää auto tietokantaan</button>
+        </div>
+    </div>
 </div>
 
 <div class="container-fluid">
