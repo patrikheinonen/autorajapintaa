@@ -234,6 +234,8 @@ function showList(json) {
                                                     <div id="content"></div>
                                                     <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
-                                              </div>`
+                                              </div>`;
+        var image = json[i].Kuva;
+        row.insertCell(14).innerHTML = `<img src='${image}'>`
     }
 }
