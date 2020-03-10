@@ -1,3 +1,11 @@
+window.onload = function() {
+    var close = document.getElementsByClassName("close")[0];
+    close.onclick = function () {
+        var insertDiv = document.getElementById("insert");
+        insertDiv.style.display = "none";
+    }
+}
+
 function searchCar() {
     document.getElementById("row").innerHTML = "";
     var name = document.getElementById("car").value;
@@ -41,11 +49,8 @@ function deleteButton(number) {
 
 function openInsertForm() {
     var insertDiv = document.getElementById("insert");
-    insertDiv.style.display = "block"
-    var close = document.getElementsByClassName("close")[0];
-    close.onclick = function () {
-        insertDiv.style.display = "none"
-    }
+    insertDiv.style.display = "block";
+
 }
 
 function addCarToDb() {
