@@ -1,10 +1,16 @@
 window.onload = function() {
     var close = document.getElementsByClassName("close")[0];
+    var closeImage = document.getElementById("closeImage")
     close.onclick = function () {
         var insertDiv = document.getElementById("insert");
         insertDiv.style.display = "none";
     }
-}
+
+    closeImage.onclick = function (){
+        var div = document.getElementById("image");
+        div.style.display = "none";
+    }
+};
 
 function searchCar() {
     document.getElementById("row").innerHTML = "";
@@ -188,6 +194,14 @@ function modifyButton(number) {
     }*/
 }
 
+function imageHover(image){
+    var div = document.getElementById("image");
+    div.style.display = "block";
+    var imageDiv = document.getElementById("imageContent");
+    console.log(image);
+    imageDiv.innerHTML = `<img src='${image}' class="center"/>`;
+}
+
 function showList(json) {
     var locationInfo = document.getElementById("locationInfo");
 
@@ -208,12 +222,16 @@ function showList(json) {
         "<th>Vetävät renkaat</th>" +
         "<th>Poista </th>" +
         "<th>Muokkaa </th>" +
+        "<th>Katso kuva </th>" +
         "</tr>" +
         "</table>";
 
     for (var i = 0; i < json.length; i++) {
         var row = locationInfo.firstChild.insertRow(-1);
         var id = json[i].AutoId;
+        var image = json[i].Kuva;
+        image = image.toString();
+        var helper =  "'";
         row.insertCell(0).innerHTML = (id);
         row.insertCell(1).innerHTML = (json[i].Merkki);
         row.insertCell(2).innerHTML = (json[i].Malli);
@@ -235,7 +253,8 @@ function showList(json) {
                                                     <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
-        var image = json[i].Kuva;
-        row.insertCell(14).innerHTML = `<img src='${image}'>`
+        row.insertCell(14).innerHTML = `<button type='button' onclick="imageHover(${helper +image+ helper})" name='hmm'>Näytä kuva</button>`
+
+
     }
 }
