@@ -12,6 +12,10 @@ window.onload = function() {
     }
 };
 
+function loadError() {
+    alert("Sisältöä ei voitu ladata!");
+}
+
 function searchCar() {
     document.getElementById("row").innerHTML = "";
     var name = document.getElementById("car").value;
@@ -35,22 +39,23 @@ function searchCar() {
 }
 
 function deleteButton(number) {
-    var id = number;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            try {
-                var json = JSON.parse(xmlhttp.responseText);
-                searchCar();
-                document.getElementById("locationInfo").firstChild.deleteRow(-1);
-            } catch {
-                document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
+    if (confirm("Oletko varma, että haluat poistaa auton tunnuksella: " + number)) {
+        var id = number;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                try {
+                    var json = JSON.parse(xmlhttp.responseText);
+                    searchCar();
+                    document.getElementById("locationInfo").firstChild.deleteRow(-1);
+                } catch {
+                    document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
+                }
             }
-        }
-    };
-    xmlhttp.open("DELETE", "http://localhost:8082/cars/" + id, true);
-    xmlhttp.send();
-
+        };
+        xmlhttp.open("DELETE", "http://localhost:8082/cars/" + id, true);
+        xmlhttp.send();
+    }
 }
 
 function openInsertForm() {
@@ -71,7 +76,7 @@ function addCarToDb() {
     var from0to100 = document.getElementById("NollastaSataan").value;
     var horsePower = document.getElementById("Hevosvoimat").value;
     var wheels = document.getElementById("VetävätRenkaat").value;
-    var imgURL = document.getElementById("KuvaUrl").value;
+    var img = document.getElementById("Kuva").value;
 
     var data = JSON.stringify(
         {
@@ -86,7 +91,7 @@ function addCarToDb() {
             from0to100: Number(from0to100),
             horsePower: Number(horsePower),
             wheels: wheels,
-            imgURL: imgURL
+            img: img
         });
 
     var xmlhttp = new XMLHttpRequest();
@@ -102,15 +107,15 @@ function addCarToDb() {
     xmlhttp.open("POST", "http://localhost:8082/cars", true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(data);
-
+    alert("Uusi auto lisätty onnistuneesti!");
+    var insertDiv = document.getElementById("insert");
+    insertDiv.style.display = "none";
+    searchCar();
 }
 
 function modifyButton(number) {
     console.log(number)
     var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-    var btn = document.getElementById("modBtn");
 
     var save = document.getElementById("saveBtn")
 
@@ -120,7 +125,6 @@ function modifyButton(number) {
     var content = document.getElementById("content");
 
     var table = document.getElementById("table");
-    console.log(table);
     let rightRow;
     for (let i = 0, row; row = table.rows[i]; i++) {
         for (let j = 0, col; col = row.cells[j]; j++) {
@@ -131,10 +135,7 @@ function modifyButton(number) {
             }
         }
     }
-    console.log("WTF:" + rightRow.rowIndex);
     for (let j = 1, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 3; j++) {
-        console.log(title.innerHTML);
-        console.log((col.innerHTML));
         var y = document.createElement("p");
         y.innerHTML = title.innerHTML + ": ";
         var x = document.createElement("INPUT");
@@ -142,9 +143,18 @@ function modifyButton(number) {
         x.setAttribute("value", col.innerHTML);
         content.append(y);
         content.append(x);
+/*
+        var values = content.getElementsByTagName("input");
+        values[2].setAttribute('type', 'number');
+        values[4].setAttribute('type', 'number');
+        values[5].setAttribute('type', 'number');
+        values[6].setAttribute('type', 'number');
+        values[7].setAttribute('type', 'number');
+        values[8].setAttribute('type', 'number');
+        values[9].setAttribute('type', 'number');
+        values[11].setAttribute('type', 'url');
+    }*/
 //
-    }
-
 // When the user clicks on the button, open the modal
     modal.style.display = "block";
 
@@ -155,9 +165,6 @@ function modifyButton(number) {
     }
 
     save.onclick = function () {
-        var values = content.getElementsByTagName("input");
-        console.log(values);
-
         var data = JSON.stringify(
             {
                 mark: values[0].value,
@@ -174,7 +181,7 @@ function modifyButton(number) {
                 img: values[11].value
             });
         console.log(values[11].value);
-
+//
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -188,14 +195,9 @@ function modifyButton(number) {
         xmlhttp.open("PUT", "http://localhost:8082/cars/" + number, true);
         xmlhttp.setRequestHeader("Content-type", "application/json");
         xmlhttp.send(data);
+        alert("Auton muokkaus onnistui!");
+        searchCar();
     }
-
-// When the user clicks anywhere outside of the modal, close it
-    /*window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }*/
 }
 
 function imageHover(image){
@@ -203,7 +205,7 @@ function imageHover(image){
     div.style.display = "block";
     var imageDiv = document.getElementById("imageContent");
     console.log(image);
-    imageDiv.innerHTML = `<img src='${image}' class="center"/>`;
+    imageDiv.innerHTML = `<img onerror="loadError()" src='${image}' class="center"/>`;
 }
 
 function showList(json) {

@@ -51,7 +51,8 @@ app.get("/cars/:name", async function (req, res) {
             res.send(json);
         }
     } catch (err) {
-        console.log("Database Error!");
+        console.log("Database Error!1");
+        console.log(err)
     }
 
 });
@@ -77,7 +78,8 @@ app.get("/cars", async function (req, res) {
             res.send(json);
         }
     } catch (err) {
-        console.log("Database Error!");
+        console.log("Database Error!2");
+        console.log(err)
     }
 
 });
@@ -95,14 +97,15 @@ function post(req, res) {
     var from0to100 = req.body.from0to100;
     var horsePower = req.body.horsePower;
     var wheels = req.body.wheels;
-    var imgUrl = req.body.imgURL;
+    var img = req.body.img;
 
     (async () => {
         try {
-            const json = await query(sql, [null, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels,imgUrl]);
+            const json = await query(sql, [null, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img]);
             res.send(json);
         } catch (err) {
-            console.log("Database Error!");
+            console.log("Database Error!3");
+            console.log(err)
         }
     })();
 }
@@ -138,12 +141,14 @@ try {
                 const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img, AutoId]);
                 res.send(json);
             } catch (err) {
-                console.log("Database Error!");
+                console.log("Database Error4!");
+                console.log(err);
             }
         })();
     }
 } catch (err) {
-    console.log("Database Error!");
+    console.log("Database Error5!");
+    console.log(err);
 }
 });
 //
@@ -157,7 +162,8 @@ app.delete("/cars/:AutoId", function (req, res) {
             const json = await query(sql, [AutoId]);
             res.send(json);
         } catch (err) {
-            console.log("Database Error!");
+            console.log("Database Error6!");
+            console.log(err)
         }
     })();
 
@@ -167,7 +173,7 @@ try {
     app.listen(8082, function () {
         console.log("http://localhost:8082/");
     });
-} catch {
-
+} catch (err) {
+    console.log(err)
 }
 ;
