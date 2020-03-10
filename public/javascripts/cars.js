@@ -71,6 +71,7 @@ function addCarToDb() {
     var from0to100 = document.getElementById("NollastaSataan").value;
     var horsePower = document.getElementById("Hevosvoimat").value;
     var wheels = document.getElementById("VetävätRenkaat").value;
+    var imgURL = document.getElementById("KuvaUrl").value;
 
     var data = JSON.stringify(
         {
@@ -84,7 +85,8 @@ function addCarToDb() {
             topSpeed: Number(topSpeed),
             from0to100: Number(from0to100),
             horsePower: Number(horsePower),
-            wheels: wheels
+            wheels: wheels,
+            imgURL: imgURL
         });
 
     var xmlhttp = new XMLHttpRequest();
@@ -130,7 +132,7 @@ function modifyButton(number) {
         }
     }
     console.log("WTF:" + rightRow.rowIndex);
-    for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 2; j++) {
+    for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 3; j++) {
         console.log(title.innerHTML);
         console.log((col.innerHTML));
         var y = document.createElement("p");
@@ -167,7 +169,8 @@ function modifyButton(number) {
                 topSpeed: values[8].value,
                 from0to100: values[9].value,
                 horsePower: values[10].value,
-                wheels: values[11].value
+                wheels: values[11].value,
+                img: values[12].value
             });
         console.log(values[11].value);
 
@@ -220,6 +223,7 @@ function showList(json) {
         "<th>Nollasta sataan</th>" +
         "<th>Hevosvoimat</th>" +
         "<th>Vetävät renkaat</th>" +
+        "<th>Kuvan url</th>" +
         "<th>Poista </th>" +
         "<th>Muokkaa </th>" +
         "<th>Katso kuva </th>" +
@@ -244,16 +248,17 @@ function showList(json) {
         row.insertCell(9).innerHTML = (json[i].NollastaSataan);
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
-        row.insertCell(12).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
-        row.insertCell(13).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
+        row.insertCell(12).innerHTML = (json[i].Kuva);
+        row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
+        row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
+                                                <button id="saveBtn">Tallenna muutokset</button>
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
                                                     <div id="content"></div>
-                                                    <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
-        row.insertCell(14).innerHTML = `<button type='button' onclick="imageHover(${helper +image+ helper})" name='hmm'>Näytä kuva</button>`
+        row.insertCell(15).innerHTML = `<button type='button' onclick="imageHover(${helper +image+ helper})" name='hmm'>Näytä kuva</button>`
 
 
     }

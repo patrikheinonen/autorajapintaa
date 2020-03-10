@@ -83,7 +83,7 @@ app.get("/cars", async function (req, res) {
 });
 
 function post(req, res) {
-    var sql = "INSERT INTO Auto VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    var sql = "INSERT INTO Auto VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     var mark = req.body.mark;
     var model = req.body.model;
     var year = req.body.year;
@@ -95,10 +95,11 @@ function post(req, res) {
     var from0to100 = req.body.from0to100;
     var horsePower = req.body.horsePower;
     var wheels = req.body.wheels;
+    var imgUrl = req.body.imgURL;
 
     (async () => {
         try {
-            const json = await query(sql, [null, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels]);
+            const json = await query(sql, [null, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels,imgUrl]);
             res.send(json);
         } catch (err) {
             console.log("Database Error!");
@@ -119,7 +120,7 @@ try {
     if (json.length === 0) {
         post(req, res);
     } else {
-        var sql = "UPDATE Auto SET Merkki = ?, Malli = ?, Valmistusvuosi = ?, Polttoaine = ?, Paino = ?, CO2 = ?, Hinta = ?, MaxNopeus = ?, NollastaSataan = ?, HevosVoimat = ?, VetävätRenkaat = ? WHERE AutoID = ?";
+        var sql = "UPDATE Auto SET Merkki = ?, Malli = ?, Valmistusvuosi = ?, Polttoaine = ?, Paino = ?, CO2 = ?, Hinta = ?, MaxNopeus = ?, NollastaSataan = ?, HevosVoimat = ?, VetävätRenkaat = ?, Kuva = ? WHERE AutoID = ?";
         var mark = req.body.mark;
         var model = req.body.model;
         var year = req.body.year;
@@ -131,9 +132,10 @@ try {
         var from0to100 = req.body.from0to100;
         var horsePower = req.body.horsePower;
         var wheels = req.body.wheels;
+        var img = req.body.img;
         (async () => {
             try {
-                const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, AutoId]);
+                const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img, AutoId]);
                 res.send(json);
             } catch (err) {
                 console.log("Database Error!");
