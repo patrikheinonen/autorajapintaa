@@ -132,7 +132,7 @@ function modifyButton(number) {
         }
     }
     console.log("WTF:" + rightRow.rowIndex);
-    for (let j = 0, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 3; j++) {
+    for (let j = 1, col, title; col = rightRow.cells[j], title = table.rows[0].cells[j], j < rightRow.cells.length - 3; j++) {
         console.log(title.innerHTML);
         console.log((col.innerHTML));
         var y = document.createElement("p");
@@ -142,7 +142,7 @@ function modifyButton(number) {
         x.setAttribute("value", col.innerHTML);
         content.append(y);
         content.append(x);
-        //
+//
     }
 
 // When the user clicks on the button, open the modal
@@ -156,21 +156,22 @@ function modifyButton(number) {
 
     save.onclick = function () {
         var values = content.getElementsByTagName("input");
+        console.log(values);
 
         var data = JSON.stringify(
             {
-                mark: values[1].value,
-                model: values[2].value,
-                year: values[3].value,
-                fuel: values[4].value,
-                weight: values[5].value,
-                co2: values[6].value,
-                price: values[7].value,
-                topSpeed: values[8].value,
-                from0to100: values[9].value,
-                horsePower: values[10].value,
-                wheels: values[11].value,
-                img: values[12].value
+                mark: values[0].value,
+                model: values[1].value,
+                year: values[2].value,
+                fuel: values[3].value,
+                weight: values[4].value,
+                co2: values[5].value,
+                price: values[6].value,
+                topSpeed: values[7].value,
+                from0to100: values[8].value,
+                horsePower: values[9].value,
+                wheels: values[10].value,
+                img: values[11].value
             });
         console.log(values[11].value);
 
@@ -252,10 +253,10 @@ function showList(json) {
         row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
         row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
-                                                <button id="saveBtn">Tallenna muutokset</button>
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
                                                     <div id="content"></div>
+                                                    <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
         row.insertCell(15).innerHTML = `<button type='button' onclick="imageHover(${helper +image+ helper})" name='hmm'>Näytä kuva</button>`
