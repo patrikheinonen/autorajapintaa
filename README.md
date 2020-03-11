@@ -1,4 +1,4 @@
-# rajapintaProjekti
+# Auto rajapinta
 Avoimet rajapinnat ja avoin data kurssin projekti
 
 Käytetyt tekniikat:
