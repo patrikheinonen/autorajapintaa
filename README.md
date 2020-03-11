@@ -14,6 +14,9 @@ Kun työhakemistosi on autorajapintaa
 kirjoita: npm start ja serveri käynnistyy jolloin voit tehdä api
 kutsuja. Api kutsujen alku polku : ```http://localhost:8082```
 
+Jos haluat kokeilla käyttöliittymää niin se löytyy osoitteesta ```http://localhost:8082```
+kunhan olet ensin käynnistänyt serverin.
+
 | **GET** | Cars |
 | :--- | :--- |
 | Näytä kaikki autot|  ```/cars``` |
