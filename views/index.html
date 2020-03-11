@@ -14,20 +14,22 @@
 </head>
 
 <body>
-<div class="page-header">
+<h1>Autokanta</h1>
+<h2>Netin paras autohakupalvelu!</h2>
+<div class="container-fluid">
+<div class="col-sm-10">
     <button type="button" onclick="openInsertForm()" class="btn btn-default" >Lisää auto</button>
     <div class="input-group">
         <input type="text" class="form-control" id="car" placeholder="Hae autoja mallin tai merkin perusteella">
         <span class="input-group-btn">
         <button type="button" class="btn btn-default" onclick="searchCar()">Hae</button>
       </span>
+        <div id="locationInfo" class="controls form-inline">
+
+        </div>
     </div>
 </div>
-
-<div id="locationInfo" class="controls form-inline">
-
 </div>
-
 <div id="insert" style="display: none" class = "modal">
     <div class="modal-content">
         <span class="close">&times;</span>
