@@ -44,7 +44,7 @@ app.get("/cars/:name", async function (req, res) {
                 res.send(null)
             } else {
                 res.send(json);
-            }
+            }//
         } else {
             res.send(json);
         }

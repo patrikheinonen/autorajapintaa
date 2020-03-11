@@ -26,7 +26,7 @@ table {
 }
 
 p{
-  color: maroon;
+  color: white;
 }
 
 span {
@@ -50,4 +50,13 @@ input {
   border-radius: 4px;
   background-color: #5CDB95;
 }
+div {
+  background-color: black;
+}
+.modal {
+  max-width: 20%;
+  position: fixed;
+  left: 80%;
+}
+
 
