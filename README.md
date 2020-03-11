@@ -6,7 +6,7 @@ Käytetyt tekniikat:
 - Backend: Node.js
 - Tietokanta: MariaDB
 
-Ohjeet projektin testaamiseen:
+#Ohjeet projektin testaamiseen:
 
 Aja ensin luontiskripti joka löytyy projektin juuresta nimellä : dbCreationScript.
 
@@ -16,6 +16,8 @@ kutsuja. Api kutsujen alku polku : ```http://localhost:8082```
 
 Jos haluat kokeilla käyttöliittymää niin se löytyy osoitteesta ```http://localhost:8082```
 kunhan olet ensin käynnistänyt serverin.
+
+#Kutsumuodot
 
 | **GET** | Cars |
 | :--- | :--- |
