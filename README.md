@@ -20,11 +20,11 @@ kutsuja. Api kutsujen alku polku : ```http://localhost:8082```
 | :--- | :--- |
 | Lisää uusi auto |  ```/cars``` |
 
-| **PUT** | Albums |
+| **PUT** | Cars |
 | :--- | :--- |
 | Päivitä autoa |  ```/cars/AutoId``` |
 
-| **DELETE** | Albums |
+| **DELETE** | Cars |
 | :--- | :--- |
 | Poista auto |  ```/cars/AutoId``` |
 
