@@ -4,17 +4,17 @@ USE car_database;
 CREATE TABLE Auto
 (
   AutoId INT AUTO_INCREMENT,
-  Merkki VARCHAR(255) NOT NULL,
-  Malli VARCHAR(255) NOT NULL,
+  Merkki VARCHAR(35) NOT NULL,
+  Malli VARCHAR(35) NOT NULL,
   Valmistusvuosi INT NOT NULL,
-  Polttoaine VARCHAR(255) NOT NULL,
+  Polttoaine VARCHAR(35) NOT NULL,
   Paino INT NOT NULL,
   CO2 INT,
   Hinta DOUBLE NOT NULL,
   MaxNopeus INT NOT NULL,
   NollastaSataan DOUBLE NOT NULL,
   HevosVoimat INT NOT NULL,
-  VetävätRenkaat VARCHAR(255) NOT NULL,
+  VetävätRenkaat VARCHAR(35) NOT NULL,
   Kuva VARCHAR(255) NOT NULL,
   PRIMARY KEY (AutoID)
 );
