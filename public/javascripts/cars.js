@@ -62,6 +62,7 @@ function openInsertForm() {
     var insertDiv = document.getElementById("insert");
     insertDiv.style.display = "block";
 
+
 }
 
 function addCarToDb() {
@@ -114,10 +115,14 @@ function addCarToDb() {
 }
 
 function modifyButton(number) {
+    var koko = document.getElementsByClassName("test");
+    for (var i = 0; i< koko.length; i++) {
+        koko[i].innerHTML = null;
+    }
     console.log(number)
     var modal = document.getElementById("myModal");
 
-    var save = document.getElementById("saveBtn")
+    var save = document.getElementById("saveBtn");
 
 // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -225,7 +230,7 @@ function showList(json) {
         "<th>Nollasta sataan (sek)</th>" +
         "<th>Hevos- voimat</th>" +
         "<th>Vetävät renkaat</th>" +
-        "<th style='display:none'>Kuvan Url</th>"
+        "<th style='display:none'>Kuvan Url</th>" +
         "<th></th>" +
         "<th></th>" +
         "<th></th>" +
@@ -255,17 +260,16 @@ function showList(json) {
         var urlCell = row.insertCell(12);
         urlCell.style.display = "none";
         urlCell.innerHTML = (image);
-        row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
-        row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
+        row.insertCell(13).innerHTML = `<button type='button' class="btn btn-default" onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
+        row.insertCell(14).innerHTML = `<button id="modBtn" class="btn btn-default" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
-                                                    <div id="content"></div>
-                                                    <button id="saveBtn">Tallenna muutokset</button>
+                                                    <div id="content" class="test"></div>
+                                                    <button id="saveBtn" class="btn btn-default">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
-        row.insertCell(15).innerHTML = `<button type='button' onclick="imageHover(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
-
+        row.insertCell(15).innerHTML = `<button type='button' class="btn btn-default" onclick="imageHover(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
 
     }
 }
