@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     var close = document.getElementsByClassName("close")[0];
     var closeImage = document.getElementById("closeImage")
     close.onclick = function () {
@@ -6,7 +6,7 @@ window.onload = function() {
         insertDiv.style.display = "none";
     }
 
-    closeImage.onclick = function (){
+    closeImage.onclick = function () {
         var div = document.getElementById("image");
         div.style.display = "none";
     }
@@ -143,7 +143,7 @@ function modifyButton(number) {
         x.setAttribute("value", col.innerHTML);
         content.append(y);
         content.append(x);
-            }
+    }
     var values = content.getElementsByTagName("input");
     values[2].setAttribute('type', 'number');
     values[4].setAttribute('type', 'number');
@@ -155,104 +155,106 @@ function modifyButton(number) {
     values[11].setAttribute('type', 'url');
 //
 // When the user clicks on the button, open the modal
-        modal.style.display = "block";
+    modal.style.display = "block";
 
 // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-            content.innerHTML = "";
-        }
+    span.onclick = function () {
+        modal.style.display = "none";
+        content.innerHTML = "";
+    }
 
-        save.onclick = function () {
-            var data = JSON.stringify(
-                {
-                    mark: values[0].value,
-                    model: values[1].value,
-                    year: values[2].value,
-                    fuel: values[3].value,
-                    weight: values[4].value,
-                    co2: values[5].value,
-                    price: values[6].value,
-                    topSpeed: values[7].value,
-                    from0to100: values[8].value,
-                    horsePower: values[9].value,
-                    wheels: values[10].value,
-                    img: values[11].value
-                });
-            console.log(values[11].value);
+    save.onclick = function () {
+        var data = JSON.stringify(
+            {
+                mark: values[0].value,
+                model: values[1].value,
+                year: values[2].value,
+                fuel: values[3].value,
+                weight: values[4].value,
+                co2: values[5].value,
+                price: values[6].value,
+                topSpeed: values[7].value,
+                from0to100: values[8].value,
+                horsePower: values[9].value,
+                wheels: values[10].value,
+                img: values[11].value
+            });
+        console.log(values[11].value);
 //
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    try {
-                        var json = JSON.parse(xmlhttp.responseText);
-                    } catch {
-                        document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
-                    }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                try {
+                    var json = JSON.parse(xmlhttp.responseText);
+                } catch {
+                    document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
                 }
-            };
-            xmlhttp.open("PUT", "http://localhost:8082/cars/" + number, true);
-            xmlhttp.setRequestHeader("Content-type", "application/json");
-            xmlhttp.send(data);
-            alert("Auton muokkaus onnistui!");
-            searchCar();
-        }
+            }
+        };
+        xmlhttp.open("PUT", "http://localhost:8082/cars/" + number, true);
+        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.send(data);
+        alert("Auton muokkaus onnistui!");
+        searchCar();
     }
+}
 
-    function imageHover(image) {
-        var div = document.getElementById("image");
-        div.style.display = "block";
-        var imageDiv = document.getElementById("imageContent");
-        console.log(image);
-        imageDiv.innerHTML = `<img onerror="loadError()" src='${image}' class="center"/>`;
-    }
+function imageHover(image) {
+    var div = document.getElementById("image");
+    div.style.display = "block";
+    var imageDiv = document.getElementById("imageContent");
+    console.log(image);
+    imageDiv.innerHTML = `<img onerror="loadError()" src='${image}' class="center"/>`;
+}
 
-    function showList(json) {
-        var locationInfo = document.getElementById("locationInfo");
+function showList(json) {
+    var locationInfo = document.getElementById("locationInfo");
 
-        locationInfo.innerHTML =
-            "<table id='table'>" +
-            "<tr>" +
-            "<th>Tunnus</th>" +
-            "<th>Merkki</th>" +
-            "<th>Malli</th>" +
-            "<th>Valmistus- vuosi</th>" +
-            "<th>Polttoaine</th>" +
-            "<th>Paino (kg)</th>" +
-            "<th>CO2 (g/km)</th>" +
-            "<th>Hinta (€)</th>" +
-            "<th>Maksimi- nopeus (km/h)</th>" +
-            "<th>Nollasta sataan (sek)</th>" +
-            "<th>Hevos- voimat</th>" +
-            "<th>Vetävät renkaat</th>" +
-            "<th>Kuvan url</th>" +
-            "<th></th>" +
-            "<th></th>" +
-            "<th></th>" +
-            "</tr>" +
-            "</table>";
+    locationInfo.innerHTML =
+        "<table id='table'>" +
+        "<tr>" +
+        "<th>Tunnus</th>" +
+        "<th>Merkki</th>" +
+        "<th>Malli</th>" +
+        "<th>Valmistus- vuosi</th>" +
+        "<th>Polttoaine</th>" +
+        "<th>Paino (kg)</th>" +
+        "<th>CO2 (g/km)</th>" +
+        "<th>Hinta (€)</th>" +
+        "<th>Maksimi- nopeus (km/h)</th>" +
+        "<th>Nollasta sataan (sek)</th>" +
+        "<th>Hevos- voimat</th>" +
+        "<th>Vetävät renkaat</th>" +
+        "<th style='display:none'>Kuvan Url</th>"
+        "<th></th>" +
+        "<th></th>" +
+        "<th></th>" +
+        "</tr>" +
+        "</table>";
 
-        for (var i = 0; i < json.length; i++) {
-            var row = locationInfo.firstChild.insertRow(-1);
-            var id = json[i].AutoId;
-            var image = json[i].Kuva;
-            image = image.toString();
-            var helper = "'";
-            row.insertCell(0).innerHTML = (id);
-            row.insertCell(1).innerHTML = (json[i].Merkki);
-            row.insertCell(2).innerHTML = (json[i].Malli);
-            row.insertCell(3).innerHTML = (json[i].Valmistusvuosi);
-            row.insertCell(4).innerHTML = (json[i].Polttoaine);
-            row.insertCell(5).innerHTML = (json[i].Paino);
-            row.insertCell(6).innerHTML = (json[i].CO2);
-            row.insertCell(7).innerHTML = (json[i].Hinta);
-            row.insertCell(8).innerHTML = (json[i].MaxNopeus);
-            row.insertCell(9).innerHTML = (json[i].NollastaSataan);
-            row.insertCell(10).innerHTML = (json[i].HevosVoimat);
-            row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
-            row.insertCell(12).innerHTML = (json[i].Kuva);
-            row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
-            row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
+    for (var i = 0; i < json.length; i++) {
+        var row = locationInfo.firstChild.insertRow(-1);
+        var id = json[i].AutoId;
+        var image = json[i].Kuva;
+        image = image.toString();
+        var helper = "'";
+        row.insertCell(0).innerHTML = (id);
+        row.insertCell(1).innerHTML = (json[i].Merkki);
+        row.insertCell(2).innerHTML = (json[i].Malli);
+        row.insertCell(3).innerHTML = (json[i].Valmistusvuosi);
+        row.insertCell(4).innerHTML = (json[i].Polttoaine);
+        row.insertCell(5).innerHTML = (json[i].Paino);
+        row.insertCell(6).innerHTML = (json[i].CO2);
+        row.insertCell(7).innerHTML = (json[i].Hinta);
+        row.insertCell(8).innerHTML = (json[i].MaxNopeus);
+        row.insertCell(9).innerHTML = (json[i].NollastaSataan);
+        row.insertCell(10).innerHTML = (json[i].HevosVoimat);
+        row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
+        var noob = row.insertCell(12);
+        noob.style.display = "none";
+        noob.innerHTML = (image);
+        row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
+        row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
@@ -260,8 +262,8 @@ function modifyButton(number) {
                                                     <button id="saveBtn">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
-            row.insertCell(15).innerHTML = `<button type='button' onclick="imageHover(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
+        row.insertCell(15).innerHTML = `<button type='button' onclick="imageHover(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
 
 
-        }
+    }
 }
