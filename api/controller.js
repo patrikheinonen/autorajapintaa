@@ -26,11 +26,10 @@ const query = util.promisify(con.query).bind(con);
 con.connect(function (err) {
     if (err) throw err;
 });
-//tarvitset tätä perkele!
+
 app.get("/", function (req, res) {
     res.sendFile(path.join(process.cwd(), '/views/index.html'));
 });
-
 app.get("/cars/:name", async function (req, res) {
 
     var { name } = req.params;
@@ -51,6 +50,7 @@ app.get("/cars/:name", async function (req, res) {
             res.send(json);
         }
     } catch (err) {
+        res.sendStatus(500);
         console.log("Database Error!1");
         console.log(err)
     }
@@ -78,6 +78,7 @@ app.get("/cars", async function (req, res) {
             res.send(json);
         }
     } catch (err) {
+        res.sendStatus(500);
         console.log("Database Error!2");
         console.log(err)
     }
@@ -104,6 +105,7 @@ function post(req, res) {
             const json = await query(sql, [null, mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img]);
             res.send(json);
         } catch (err) {
+            res.sendStatus(500);
             console.log("Database Error!3");
             console.log(err)
         }
@@ -141,12 +143,14 @@ try {
                 const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img, AutoId]);
                 res.send(json);
             } catch (err) {
+                res.sendStatus(500);
                 console.log("Database Error4!");
                 console.log(err);
             }
         })();
     }
 } catch (err) {
+    res.sendStatus(500);
     console.log("Database Error5!");
     console.log(err);
 }
@@ -162,6 +166,7 @@ app.delete("/cars/:AutoId", function (req, res) {
             const json = await query(sql, [AutoId]);
             res.send(json);
         } catch (err) {
+            res.sendStatus(500);
             console.log("Database Error6!");
             console.log(err)
         }
@@ -175,5 +180,4 @@ try {
     });
 } catch (err) {
     console.log(err)
-}
-;
+};
