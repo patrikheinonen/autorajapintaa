@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
 });
 app.get("/cars/:name", async function (req, res) {
 
-    var { name } = req.params;
+    var {name} = req.params;
     var sql = "SELECT * FROM auto WHERE Malli = ?";
 
     try {
@@ -42,8 +42,7 @@ app.get("/cars/:name", async function (req, res) {
             json = await query(sql, [name]);
             if (json.length === 0) {
                 res.send(null)
-            }
-            else {
+            } else {
                 res.send(json);
             }
         } else {
@@ -59,21 +58,11 @@ app.get("/cars/:name", async function (req, res) {
 
 app.get("/cars", async function (req, res) {
 
-    var { name } = req.params;
-    if (name == null || name.length === 0) {
-        var sql = "SELECT * FROM auto";
-    }
+    var sql = "SELECT * FROM auto";
     try {
-        let json = await query(sql, [name]);
+        let json = await query(sql);
         if (json.length === 0) {
-            sql = "SELECT * FROM auto WHERE Merkki = ?";
-            json = await query(sql, [name]);
-            if (json.length === 0) {
-                res.send(null)
-            }
-            else {
-                res.send(json);
-            }
+            res.send(null);
         } else {
             res.send(json);
         }
@@ -118,47 +107,47 @@ app.post("/cars", function (req, res) {
 
 
 app.put("/cars/:AutoId", async function (req, res) {
-    var { AutoId } = req.params;
+    var {AutoId} = req.params;
     var sql = "SELECT * FROM auto WHERE AutoID = ?";
-try {
-    const json = await query(sql, [AutoId]);
-    if (json.length === 0) {
-        post(req, res);
-    } else {
-        var sql = "UPDATE Auto SET Merkki = ?, Malli = ?, Valmistusvuosi = ?, Polttoaine = ?, Paino = ?, CO2 = ?, Hinta = ?, MaxNopeus = ?, NollastaSataan = ?, HevosVoimat = ?, VetävätRenkaat = ?, Kuva = ? WHERE AutoID = ?";
-        var mark = req.body.mark;
-        var model = req.body.model;
-        var year = req.body.year;
-        var fuel = req.body.fuel;
-        var weight = req.body.weight;
-        var co2 = req.body.co2;
-        var price = req.body.price;
-        var topSpeed = req.body.topSpeed;
-        var from0to100 = req.body.from0to100;
-        var horsePower = req.body.horsePower;
-        var wheels = req.body.wheels;
-        var img = req.body.img;
-        (async () => {
-            try {
-                const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img, AutoId]);
-                res.send(json);
-            } catch (err) {
-                res.sendStatus(500);
-                console.log("Database Error4!");
-                console.log(err);
-            }
-        })();
+    try {
+        const json = await query(sql, [AutoId]);
+        if (json.length === 0) {
+            post(req, res);
+        } else {
+            var sql = "UPDATE Auto SET Merkki = ?, Malli = ?, Valmistusvuosi = ?, Polttoaine = ?, Paino = ?, CO2 = ?, Hinta = ?, MaxNopeus = ?, NollastaSataan = ?, HevosVoimat = ?, VetävätRenkaat = ?, Kuva = ? WHERE AutoID = ?";
+            var mark = req.body.mark;
+            var model = req.body.model;
+            var year = req.body.year;
+            var fuel = req.body.fuel;
+            var weight = req.body.weight;
+            var co2 = req.body.co2;
+            var price = req.body.price;
+            var topSpeed = req.body.topSpeed;
+            var from0to100 = req.body.from0to100;
+            var horsePower = req.body.horsePower;
+            var wheels = req.body.wheels;
+            var img = req.body.img;
+            (async () => {
+                try {
+                    const json = await query(sql, [mark, model, year, fuel, weight, co2, price, topSpeed, from0to100, horsePower, wheels, img, AutoId]);
+                    res.send(json);
+                } catch (err) {
+                    res.sendStatus(500);
+                    console.log("Database Error4!");
+                    console.log(err);
+                }
+            })();
+        }
+    } catch (err) {
+        res.sendStatus(500);
+        console.log("Database Error5!");
+        console.log(err);
     }
-} catch (err) {
-    res.sendStatus(500);
-    console.log("Database Error5!");
-    console.log(err);
-}
 });
 //
 
 app.delete("/cars/:AutoId", function (req, res) {
-    var { AutoId } = req.params;
+    var {AutoId} = req.params;
     var sql = "DELETE FROM Auto WHERE AutoId = ?";
 
     (async () => {
@@ -180,4 +169,5 @@ try {
     });
 } catch (err) {
     console.log(err)
-};
+}
+;
