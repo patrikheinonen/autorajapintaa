@@ -250,9 +250,11 @@ function showList(json) {
         row.insertCell(9).innerHTML = (json[i].NollastaSataan);
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
-        var noob = row.insertCell(12);
-        noob.style.display = "none";
-        noob.innerHTML = (image);
+        //the following 3 lines of code are  vital so that the modifyButton function will work as intended
+        //AND you dont need to display the cell which has the url.
+        var urlCell = row.insertCell(12);
+        urlCell.style.display = "none";
+        urlCell.innerHTML = (image);
         row.insertCell(13).innerHTML = `<button type='button' onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
         row.insertCell(14).innerHTML = `<button id="modBtn" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
