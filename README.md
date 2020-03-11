@@ -6,6 +6,10 @@ Käytetyt tekniikat:
 - Backend: Node.js
 - Tietokanta: MariaDB
 
+Ohjeet projektin testaamiseen:
+
+Aja ensin luontiskripti joka löytyy projektin juuresta nimellä : dbCreationScript.
+
 Kun työhakemistosi on autorajapintaa
 kirjoita: npm start ja serveri käynnistyy jolloin voit tehdä api
 kutsuja. Api kutsujen alku polku : ```http://localhost:8082```

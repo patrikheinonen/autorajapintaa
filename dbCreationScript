@@ -18,6 +18,9 @@ CREATE TABLE Auto
   Kuva VARCHAR(255) NOT NULL,
   PRIMARY KEY (AutoID)
 );
+DROP USER IF EXISTS 'user'@'localhost';
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'dbpass';
+GRANT SELECT, INSERT, UPDATE, DELETE ON car_database.* TO user@localhost;
 
 #INSERT INTO auto VALUES    ("MERKKI","MALLI",VALMISTUSVUOSI,"POLTTOAINE",PAINO,CO2,HINTA, MAXNOPEUS, NOLLASTASATAAN, HevosVoimat, "VetävätRenkaat", "Kuva");
 INSERT INTO auto (Merkki, Malli, Valmistusvuosi, Polttoaine, Paino, CO2, Hinta, MaxNopeus, NollastaSataan, HevosVoimat, VetävätRenkaat, Kuva)

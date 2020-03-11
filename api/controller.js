@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({
 
 var con = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "root",
+    user: "user",
+    password: "dbpass",
     database: "car_database"
 });
 
