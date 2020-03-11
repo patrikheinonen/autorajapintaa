@@ -58,5 +58,13 @@ div {
   position: fixed;
   left: 80%;
 }
+.modal-content {
+  z-index: 100;
+}
 
+#image {
+  max-width: 100%;
+  position: center;
+  left: 0%
+}
 
