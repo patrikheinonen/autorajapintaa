@@ -1,0 +1,33 @@
+DROP DATABASE IF EXISTS car_database;
+CREATE DATABASE car_database;
+USE car_database;
+CREATE TABLE Auto
+(
+  AutoId INT AUTO_INCREMENT,
+  Merkki VARCHAR(255) NOT NULL,
+  Malli VARCHAR(255) NOT NULL,
+  Valmistusvuosi INT NOT NULL,
+  Polttoaine VARCHAR(255) NOT NULL,
+  Paino INT NOT NULL,
+  CO2 INT,
+  Hinta DOUBLE NOT NULL,
+  MaxNopeus INT NOT NULL,
+  NollastaSataan DOUBLE NOT NULL,
+  HevosVoimat INT NOT NULL,
+  VetävätRenkaat VARCHAR(255) NOT NULL,
+  Kuva VARCHAR(255) NOT NULL,
+  PRIMARY KEY (AutoID)
+);
+
+#INSERT INTO auto VALUES    ("MERKKI","MALLI",VALMISTUSVUOSI,"POLTTOAINE",PAINO,CO2,HINTA, MAXNOPEUS, NOLLASTASATAAN, HevosVoimat, "VetävätRenkaat", "Kuva");
+INSERT INTO auto (Merkki, Malli, Valmistusvuosi, Polttoaine, Paino, CO2, Hinta, MaxNopeus, NollastaSataan, HevosVoimat, VetävätRenkaat, Kuva)
+VALUES    ("Daewoo","Matiz",2005,"Bensiini",778,100,1000, 150, 6,52, "Etuveto", "https://www.auto1.fi/b/daewoo-evanda_112006_1.jpg"),
+    ("Renault","Scenic",2006,"Bensiini",1395,7,1000, 185, 13, 113, "Etuveto", "https://www.renault.fi/wp-content/uploads/2017/08/Renault-Captur-header.jpg"),
+        ("Alfa Romeo","4C",2015,"Korkealaatuinen bensiini",2465,100,10000, 200, 7, 237, "Takaveto", "https://www.alfaromeo.fi/wp-content/uploads/2019/11/Alfa-Romeo_Stelvio_720x404.jpg"),
+       ("Mercedes-Benz","S-sarja",2016,"Normaali lyijytön bensiini",2000,100,25000, 200, 8, 200, "Etuveto", "https://cars.usnews.com/static/images/Auto/izmo/i51570158/2018_mercedes_benz_s_class_angularfront.jpg"),
+		 ("BMW","X7",2016,"Korkealaatuinen bensiini",2500,100,30000, 231, 9, 300, "Neliveto", "https://www.bmw.fi/content/dam/bmw/common/all-models/x-series/x7/2018/Inform/bmw-x7-inform-stage-desktop.jpg"),
+		 ("Volkswagen","Alltrack",2016,"Korkealaatuinen bensiini",2500,89,50000, 249, 3, 600, "Etuveto", "https://di-uploads-pod14.dealerinspire.com/pfaffvolkswagen/uploads/2019/12/alltrack.jpg"),
+		 ("Ford","Mustang",2015,"Korkealaatuinen bensiini",2601,57,50000, 300, 6, 300, "Takaveto", "https://images.hgmsites.net/hug/2015-ford-mustang-apollo-edition_100518873_h.jpg"),
+		 ("Toyota","Tacoma",2016,"Bensiini",2642,57,15000, 150, 15, 200, "Takaveto", "https://3-photos.motorcar.com/used-2016-toyota-tacoma-sr5doublecab2wdv6automatic-7425-19014768-1-640.jpg"),
+		 ("Nissan","Titan",2016,"Bensiini",2541,91,12000, 150, 15, 200, "Takaveto", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/2019_Nissan_Titan_XD_Pro4X_front_NYIAS_2019.jpg/1200px-2019_Nissan_Titan_XD_Pro4X_front_NYIAS_2019.jpg"),
+		 ("Chevrolet","Volt",2016,"Sähköauto",2431,1,50000, 300, 7, 300, "Etuveto", "https://upload.wikimedia.org/wikipedia/commons/7/74/Chevrolet_Volt_WAS_2017_1739.jpg");
