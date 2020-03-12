@@ -1,70 +1,75 @@
 body {
-  color: white;
-  background-color: black;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: black;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
 
 img {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  max-width: 900px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  object-fit: cover;
-}
-table {
-  border-collapse: collapse;
-  border: 1px solid white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    max-width: 900px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
 }
 
-p{
-  color: white;
+table {
+    border-collapse: collapse;
+    border: 1px solid white;
+}
+
+p {
+    color: white;
 }
 
 span {
-  background-color: #EDF5E1;
+    background-color: #EDF5E1;
 }
+
 h1 {
-  color: #8EE4AF;
+    color: #8EE4AF;
 }
+
 h2 {
-  color: #dddddd;
+    color: #dddddd;
 }
+
 button {
-  background-color: #5CDB95;
+    background-color: #5CDB95;
 }
+
 td {
-  border: 1px solid white;
-  column-gap: 5px;
+    border: 1px solid white;
+    column-gap: 5px;
 }
+
 input {
-  border: 2px white;
-  border-radius: 4px;
-  background-color: #5CDB95;
+    border: 2px white;
+    border-radius: 4px;
+    background-color: #5CDB95;
 }
+
 div {
-  background-color: black;
+    background-color: black;
 }
+
 .modal {
-  max-width: 20%;
-  position: fixed;
-  left: 80%;
-}
-.modal-content {
-  z-index: 100;
+    max-width: 17%;
+    position: fixed;
+    left: 83%;
 }
 
 #image {
-  max-width: 100%;
-  position: center;
-  left: 0%
+    max-width: 100%;
+    position: center;
+    left: 0%
 }
 

@@ -50,8 +50,6 @@ app.get("/cars/:name", async function (req, res) {
         }
     } catch (err) {
         res.sendStatus(500);
-        console.log("Database Error!1");
-        console.log(err)
     }
 
 });
@@ -68,8 +66,6 @@ app.get("/cars", async function (req, res) {
         }
     } catch (err) {
         res.sendStatus(500);
-        console.log("Database Error!2");
-        console.log(err)
     }
 
 });
@@ -95,8 +91,6 @@ function post(req, res) {
             res.send(json);
         } catch (err) {
             res.sendStatus(500);
-            console.log("Database Error!3");
-            console.log(err)
         }
     })();
 }
@@ -133,15 +127,11 @@ app.put("/cars/:AutoId", async function (req, res) {
                     res.send(json);
                 } catch (err) {
                     res.sendStatus(500);
-                    console.log("Database Error4!");
-                    console.log(err);
                 }
             })();
-        }
+        }//
     } catch (err) {
         res.sendStatus(500);
-        console.log("Database Error5!");
-        console.log(err);
     }
 });
 //
@@ -156,8 +146,6 @@ app.delete("/cars/:AutoId", function (req, res) {
             res.send(json);
         } catch (err) {
             res.sendStatus(500);
-            console.log("Database Error6!");
-            console.log(err)
         }
     })();
 
@@ -168,6 +156,5 @@ try {
         console.log("http://localhost:8082/");
     });
 } catch (err) {
-    console.log(err)
 }
 ;
