@@ -3,7 +3,7 @@ Avoimet rajapinnat ja avoin data kurssin projekti
 
 Käytetyt tekniikat:
 - Frontend: Javascript, Bootstrap, CSS, HTML5
-- Backend: Node.js
+- Backend: Node.js, Framework: Express
 - Tietokanta: MariaDB
 
 **Ohjeet projektin testaamiseen:**
