@@ -27,7 +27,6 @@ function searchCar() {
 
                 if (json.length > 0) {
                     showList(json);
-                } else {
                 }
             } catch {
                 document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään"
@@ -44,13 +43,8 @@ function deleteButton(number) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                try {
-                    var json = JSON.parse(xmlhttp.responseText);
-                    searchCar();
-                    document.getElementById("locationInfo").firstChild.deleteRow(-1);
-                } catch {
-                    document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
-                }
+                searchCar();
+                document.getElementById("locationInfo").firstChild.deleteRow(-1);
             }
         };
         xmlhttp.open("DELETE", "http://localhost:8082/cars/" + id, true);
@@ -61,8 +55,6 @@ function deleteButton(number) {
 function openInsertForm() {
     var insertDiv = document.getElementById("insert");
     insertDiv.style.display = "block";
-
-
 }
 
 function addCarToDb() {
@@ -96,15 +88,6 @@ function addCarToDb() {
         });
 
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            try {
-                var json = JSON.parse(xmlhttp.responseText);
-            } catch {
-                document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
-            }
-        }
-    };
     xmlhttp.open("POST", "http://localhost:8082/cars", true);
     xmlhttp.setRequestHeader("Content-type", "application/json");
     xmlhttp.send(data);
@@ -115,9 +98,9 @@ function addCarToDb() {
 }
 
 function modifyButton(number) {
-    var koko = document.getElementsByClassName("test");
-    for (var i = 0; i < koko.length; i++) {
-        koko[i].innerHTML = null;
+    var modify = document.getElementsByClassName("modify");
+    for (var i = 0; i < modify.length; i++) {
+        modify[i].innerHTML = null;
     }
     var modal = document.getElementById("myModal");
 
@@ -182,15 +165,6 @@ function modifyButton(number) {
             });
 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                try {
-                    var json = JSON.parse(xmlhttp.responseText);
-                } catch {
-                    document.getElementById("row").innerHTML = "Haulla ei löytynyt mitään";
-                }
-            }
-        };
         xmlhttp.open("PUT", "http://localhost:8082/cars/" + number, true);
         xmlhttp.setRequestHeader("Content-type", "application/json");
         xmlhttp.send(data);
@@ -199,7 +173,7 @@ function modifyButton(number) {
     }
 }
 
-function imageHover(image) {
+function openImage(image) {
     var div = document.getElementById("image");
     div.style.display = "block";
     var imageDiv = document.getElementById("imageContent");
@@ -253,16 +227,16 @@ function showList(json) {
         var urlCell = row.insertCell(12);
         urlCell.style.display = "none";
         urlCell.innerHTML = (image);
-        row.insertCell(13).innerHTML = `<button type='button' class="btn btn-default" onclick='deleteButton(${id})' name='deletebtn'>Poista</button>`
+        row.insertCell(13).innerHTML = `<button type='button' class="btn btn-default" onclick='deleteButton(${id})'>Poista</button>`
         row.insertCell(14).innerHTML = `<button id="modBtn" class="btn btn-default" onclick='modifyButton(${id})'>Muokkaa</button>
                                               <div id="myModal" class="modal">
                                                 <div class="modal-content">
                                                     <span class="close">&times;</span>
-                                                    <div id="content" class="test"></div>
+                                                    <div id="content" class="modify"></div>
                                                     <button id="saveBtn" class="btn btn-default">Tallenna muutokset</button>
                                                 </div>
                                               </div>`;
-        row.insertCell(15).innerHTML = `<button type='button' class="btn btn-default" onclick="imageHover(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
+        row.insertCell(15).innerHTML = `<button type='button' class="btn btn-default" onclick="openImage(${helper + image + helper})" name='hmm'>Näytä kuva</button>`
 
     }
 }
