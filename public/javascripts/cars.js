@@ -1,6 +1,6 @@
 window.onload = function () {
     var close = document.getElementsByClassName("close")[0];
-    var closeImage = document.getElementById("closeImage")
+    var closeImage = document.getElementById("closeImage");
     close.onclick = function () {
         var insertDiv = document.getElementById("insert");
         insertDiv.style.display = "none";
@@ -25,7 +25,7 @@ function searchCar() {
             try {
                 var json = JSON.parse(xmlhttp.responseText);
 
-                if (json.length > 0) { // something found
+                if (json.length > 0) {
                     showList(json);
                 } else {
                 }
@@ -116,15 +116,13 @@ function addCarToDb() {
 
 function modifyButton(number) {
     var koko = document.getElementsByClassName("test");
-    for (var i = 0; i< koko.length; i++) {
+    for (var i = 0; i < koko.length; i++) {
         koko[i].innerHTML = null;
     }
-    console.log(number)
     var modal = document.getElementById("myModal");
 
     var save = document.getElementById("saveBtn");
 
-// Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     var content = document.getElementById("content");
@@ -158,11 +156,9 @@ function modifyButton(number) {
     values[8].setAttribute('type', 'number');
     values[9].setAttribute('type', 'number');
     values[11].setAttribute('type', 'url');
-//
-// When the user clicks on the button, open the modal
+
     modal.style.display = "block";
 
-// When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
         content.innerHTML = "";
@@ -184,8 +180,7 @@ function modifyButton(number) {
                 wheels: values[10].value,
                 img: values[11].value
             });
-        console.log(values[11].value);
-//
+
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -208,7 +203,6 @@ function imageHover(image) {
     var div = document.getElementById("image");
     div.style.display = "block";
     var imageDiv = document.getElementById("imageContent");
-    console.log(image);
     imageDiv.innerHTML = `<img onerror="loadError()" src='${image}' class="center"/>`;
 }
 
@@ -255,8 +249,7 @@ function showList(json) {
         row.insertCell(9).innerHTML = (json[i].NollastaSataan);
         row.insertCell(10).innerHTML = (json[i].HevosVoimat);
         row.insertCell(11).innerHTML = (json[i].VetävätRenkaat);
-        //the following 3 lines of code are  vital so that the modifyButton function will work as intended
-        //AND you dont need to display the cell which has the url.
+
         var urlCell = row.insertCell(12);
         urlCell.style.display = "none";
         urlCell.innerHTML = (image);
